@@ -24,6 +24,16 @@ time.sleep(STARTUP_DELAY)
 print(f"[boot] ready, hostname={HOSTNAME}, student={STUDENT_ID}")
 
 #Route
+@app.route("/")
+def index():
+    return f"Hello from {STUDENT_ID} pod={HOSTNAME}\n", 200
 
+@app.route("/healthz")
+def healthz():
+    if HEALTHZ_LAT > 0:
+        time.sleep(HEALTHZ_LAT / 1000.0)
+    with _lock:
+        wedged = _wedged
 
+    if wedged:
 
