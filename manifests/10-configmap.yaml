@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flaky-config-126332246
+  namespace: probes-126332246
+data:
+  STARTUP_DELAY_SECONDS: "0"
+  HEALTHZ_LATENCY_MS: "0"
