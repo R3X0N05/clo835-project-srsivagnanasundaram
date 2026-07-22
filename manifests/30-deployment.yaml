@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flaky-126332246
+  namespace: probes-126332246
+  labels:
+    app: flaky-126332246
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: flaky-126332246
+  template:
+    metadata:
+      labels:
+        app: flaky-126332246
+    spec:
+      containers:
+      - name: flaky
+        image: r3x0n05/flaky-126332246:v1
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: flaky-config-126332246
+          resources:
+            requests:
+              cpu: 50m
+              memory: 32Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            periodSeconds: 5
+            failureThreshold: 25 #25 * 5 = 125 seconds for max boot window
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            periodSeconds: 5
+            failureThreshold: 2
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          
