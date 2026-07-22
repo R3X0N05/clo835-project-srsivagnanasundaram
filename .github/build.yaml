@@ -1,0 +1,16 @@
+name : Build and Push to Docker Hub
+on:
+  push:
+    branches: [ main]
+    paths: ['app/**']
+
+
+jobs :
+    build-and-push:
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v4
+    
+        
