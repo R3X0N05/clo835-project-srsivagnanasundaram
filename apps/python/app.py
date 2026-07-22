@@ -36,4 +36,16 @@ def healthz():
         wedged = _wedged
 
     if wedged:
+        return f"WEDGED pod={HOSTNAME} student={STUDENT_ID}\n", 500
 
+    return f"ok {STUDENT_ID} pod={HOSTNAME}\n", 200
+
+@app.route("/wedge", methods=["GET", "POST"])
+def wedge():
+    global _wedged
+    with _lock:
+        _wedged = True
+    return f"wedged pod={HOSTNAME} student={STUDENT_ID}\n", 200
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080)
