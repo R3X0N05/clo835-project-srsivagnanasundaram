@@ -122,6 +122,7 @@ See `runbook.md` for installation commands.
 ## Quick Start
 
 ```bash
+chmod +x bootstrap.sh
 ./bootstrap.sh
 kubectl get pods -n probes-126332246 -w
 ```

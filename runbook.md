@@ -1,8 +1,8 @@
 # CLO 835 Project : Self-healing and probe tuning
 ## S.R.Selva Roshan | 126332246
-
+---
 # Runbook
-
+---
 ## Prerequisites
 
 To begin running this project please make sure that the following are installed and ready before proceeding with cloning the repo
@@ -52,8 +52,9 @@ NS="probes-126332246"
 DEP="flaky-126332246"
 SVC="flaky-svc-126332246"
 ```
+---
 
-## -------------------- Section 1 : Bootstrap ----------------------------
+## Section 1 : Bootstrap
 
 run below commands in order
 ```bash
@@ -64,7 +65,9 @@ kubectl get pods -n probes-126332246 -w
 
 Please wait patiently for all 3 deployed pods to be running successfully with restartCount set at 0
 
-## ------------------ Section 2 : Demonstrate deployed probes ----------------------
+---
+
+## Section 2 : Demonstrate deployed probes
 
 run below commands in order
 ```bash
@@ -72,7 +75,9 @@ kubectl get pods -n probes-126332246
 grep -A 30 'startupProbe' manifests/30-deployment.yaml
 ```
 
-## ---------------- Section 3 : Demonstrate rotating hostnames using curl --------------------
+---
+
+## Section 3 : Demonstrate rotating hostnames using curl
 
 run below commands in order
 ```bash
@@ -82,7 +87,9 @@ kubectl exec -it curl-client -n probes-126332246 -- \
 
 This demonstrates the three different pods using hostnames to show all of them contain my student id
 
-## -------------- Section 4 : Demonstrate self-heal live -------------------
+---
+
+## Section 4 : Demonstrate self-heal live
  
 run below commands in order
 ```bash
@@ -113,7 +120,9 @@ kubectl get events -n probes-126332246 --sort-by=.lastTimestamp | tail -20
 
 This demonstrates the liveness probe failing and then terminating the container
 
-## ---------- Section 5 : Demonstrate slow-start and how probe tolerates 90 seconds without restarting ---------
+---
+
+## Section 5 : Demonstrate slow-start and how probe tolerates 90 seconds without restarting
 
 run below commands in order
 ```bash
@@ -135,7 +144,9 @@ kubectl get pods -n probes-126332246 -w
 You can observe newly deployed pods at 0/1 without restarting while old pods
 keep serving throughout demonstarting readiness gating
 
-## ------------ Section 6 : Demonstarting readiness gating on two paths ----------------
+---
+
+## Section 6 : Demonstarting readiness gating on two paths
 
 Demonstrating the first path which is wedge showing liveness killing the pod
 run below commands in order
@@ -174,8 +185,9 @@ kubectl create configmap flaky-config-126332246 \
 kubectl rollout restart deployment/flaky-126332246 -n probes-126332246
 kubectl rollout status deployment/flaky-126332246 -n probes-126332246
 ```
+---
 
-## ------------- Section 7 : Demonstrate time to kill formula -----------------
+## Section 7 : Demonstrate time to kill formula
 
 below shows the math behind the time to kill formula that's being used
 ```
@@ -184,15 +196,16 @@ time to kill = failureThreshold * periodSeconds
 good probe: 3 x 10 = 30 seconds
 bad probe: 1 x 2 = 2 seconds (poll timesout at 1 second)
 ```
+---
 
-## -------------- Section 8 : For Professor's Twist ---------------------
-
+## Section 8 : For Professor's Twist
 run nano predictions and fill in the numbers professor's provides
 ```bash
 nano predictions.md
 ```
+---
 
-## ----------- Section 9 : Demonstrate Healthly app into CrashLoopBackOff ---------
+## Section 9 : Demonstrate Healthly app into CrashLoopBackOff
 
 run below commands in order
 ```bash
@@ -223,8 +236,9 @@ Run below commands to prove that the probe and restarting failed
 kubectl describe pod -n probes-126332246 -l app=flaky-126332246 | grep -A 3 "Liveness probe failed"
 kubectl get events -n probes-126332246 --sort-by=.lastTimestamp | tail -20
 ```
+---
 
-# ------------- Section 10: Demonstrate recovery -----------------
+## Section 10: Demonstrate recovery
 
 run below commands in order to recover the pods back to the healthy state
 ```bash
@@ -243,12 +257,14 @@ kubectl rollout restart deployment/flaky-126332246 -n probes-126332246
 kubectl rollout status deployment/flaky-126332246 -n probes-126332246
 kubectl get pods -n probes-126332246
 ```
+---
 
-# ------------- Section 11 : Cleanup Environment -----------
+## Section 11 : Cleanup Environment
 
 run below commands in order to cleanup environment
 ```bash
 kind delete cluster --name probe-126332246
 ```
+---
 
-# ------ END OF DEMONSTRATION - THANK YOU ---------
+# END OF DEMONSTRATION - THANK YOU
