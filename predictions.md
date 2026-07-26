@@ -18,7 +18,7 @@ time-to-kill = failureThreshold x periodSeconds
 | 180                   | 0                  | none (removed)                   | 10s / 3s / 3                              | 3 x 10 = 30s        | restart loop, CrashLoopBackOff |
 | 0                     | 2500               | 5s / 25                          | 10s / 3s / 3                              | liveness passes     | 0/1 Ready, never killed        |
 
-## live example
+## live example for the professor twist
 
 | STARTUP_DELAY_SECONDS | HEALTHZ_LATENCY_MS | startupProbe (period/threshold) | livenessProbe (period/timeout/threshold) | time-to-kill | predicted outcome |
 |-----------------------|--------------------|----------------------------------|-------------------------------------------|--------------|-------------------|
