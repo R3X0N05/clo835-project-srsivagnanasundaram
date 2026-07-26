@@ -23,7 +23,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: flaky-config-126332246
-
+        # no startup probe therefore wrong liveness fires immediately during boot and kills the pod before it can start up
           readinessProbe:
             httpGet:
               path: /healthz
@@ -35,6 +35,6 @@ spec:
             httpGet:
               path: /healthz
               port: 8080
-            periodSeconds: 2
-            timeoutSeconds: 1
-            failureThreshold: 1
+            periodSeconds: 2 #wrong : used to be 10 but with aggresive settings it fires every 2 seconds
+            timeoutSeconds: 1 #wrong : used to be 3 but with HEALTHZ_LATENCY set to 2000 every call will timeout and fail
+            failureThreshold: 1 #wrong : used to be 3 but with one timeout set, the pod will be killed immediately

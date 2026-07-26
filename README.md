@@ -140,6 +140,21 @@ Wait until all 3 pods show `1/1 Running` with restart count 0.
 
 ---
 
+## Key Learning Outcomes
+
+- What startup, readiness, and liveness probes each do and which failure each one handles
+- How failureThreshold x periodSeconds combines into a time-to-kill budget
+- How readiness gates Service endpoints so unready pods receive zero traffic without being killed
+- How a mis-tuned liveness probe produces CrashLoopBackOff on a healthy app
+- How to predict probe behaviour from numbers before applying a manifest
+
+## References
+
+- Kubernetes Documentation — https://kubernetes.io/docs/
+- Configure Liveness, Readiness and Startup Probes — https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+- kind (Kubernetes in Docker) — https://kind.sigs.k8s.io/
+
+---
 
 
 
