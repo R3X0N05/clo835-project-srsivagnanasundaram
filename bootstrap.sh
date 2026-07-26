@@ -6,7 +6,7 @@
 set -euxo pipefail
 
 #Declaring ID and namespace
-STUDENT_ID = "126332246"
+STUDENT_ID="126332246"
 NS="probes-${STUDENT_ID}"
 
 #creating kind cluster
