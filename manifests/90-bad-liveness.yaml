@@ -23,17 +23,18 @@ spec:
           envFrom:
             - configMapRef:
                 name: flaky-config-126332246
+
           readinessProbe:
             httpGet:
               path: /healthz
               port: 8080
-              periodSeconds: 5
-              failureThreshold: 2
-              timeoutSeconds: 2
-            livenessProbe:
-              httpGet:
-                path: /healthz
-                port: 8080
-              periodSeconds: 2
-              timeoutSeconds: 1
-              failureThreshold: 1      
+            periodSeconds: 5
+            failureThreshold: 2
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            periodSeconds: 2
+            timeoutSeconds: 1
+            failureThreshold: 1
