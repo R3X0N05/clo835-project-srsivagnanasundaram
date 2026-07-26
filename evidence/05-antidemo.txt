@@ -1,0 +1,33 @@
+NAME                               READY   STATUS    RESTARTS     AGE
+curl-client                        1/1     Running   0            20m
+flaky-126332246-54b94bccfb-z69tz   0/1     Running   4 (4s ago)   2m16s
+flaky-126332246-54fbcb864-5g928    1/1     Running   0            4m57s
+flaky-126332246-54fbcb864-7kxtn    1/1     Running   0            4m51s
+flaky-126332246-54fbcb864-wx4jk    1/1     Running   0            4m45s
+flaky-126332246-54b94bccfb-z69tz   0/1     CrashLoopBackOff   4 (1s ago)   2m47s
+flaky-126332246-54b94bccfb-z69tz   0/1     Running            5 (52s ago)   3m38s
+flaky-126332246-54b94bccfb-z69tz   0/1     Running            6 (1s ago)    4m12s
+  Warning  Unhealthy  10m (x3 over 11m)    kubelet            spec.containers{flaky}: Liveness probe failed: Get "http://10.244.2.10:8080/healthz": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+  Warning  Unhealthy  10m (x21 over 11m)   kubelet            spec.containers{flaky}: Readiness probe failed: Get "http://10.244.2.10:8080/healthz": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+  Normal   Created    8m21s (x6 over 11m)  kubelet            spec.containers{flaky}: Container created
+  Normal   Started    8m21s (x6 over 11m)  kubelet            spec.containers{flaky}: Container started
+14m         Normal    Killing             pod/flaky-126332246-88899dcd7-hwn4g     Stopping container flaky
+13m         Normal    SuccessfulCreate    replicaset/flaky-126332246-59ffb95766   Created pod: flaky-126332246-59ffb95766-pjljm
+13m         Normal    Scheduled           pod/flaky-126332246-59ffb95766-pjljm    Successfully assigned probes-126332246/flaky-126332246-59ffb95766-pjljm to probe-126332246-worker
+13m         Normal    Pulled              pod/flaky-126332246-59ffb95766-pjljm    Container image "r3x0n05/flaky-126332246:v1" already present on machine and can be accessed by the pod
+13m         Normal    Started             pod/flaky-126332246-59ffb95766-pjljm    Container started
+13m         Normal    Created             pod/flaky-126332246-59ffb95766-pjljm    Container created
+12m         Warning   Unhealthy           pod/flaky-126332246-59ffb95766-pjljm    Startup probe failed: Get "http://10.244.2.9:8080/healthz": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+11m         Normal    Scheduled           pod/flaky-126332246-54b94bccfb-z69tz    Successfully assigned probes-126332246/flaky-126332246-54b94bccfb-z69tz to probe-126332246-worker
+11m         Normal    SuccessfulCreate    replicaset/flaky-126332246-54b94bccfb   Created pod: flaky-126332246-54b94bccfb-z69tz
+11m         Normal    ScalingReplicaSet   deployment/flaky-126332246              (combined from similar events): Scaled up replica set flaky-126332246-54b94bccfb from 0 to 1
+11m         Normal    SuccessfulDelete    replicaset/flaky-126332246-59ffb95766   Deleted pod: flaky-126332246-59ffb95766-pjljm
+11m         Normal    Killing             pod/flaky-126332246-59ffb95766-pjljm    Stopping container flaky
+11m         Warning   Unhealthy           pod/flaky-126332246-54b94bccfb-z69tz    Readiness probe failed: Get "http://10.244.2.10:8080/healthz": dial tcp 10.244.2.10:8080: connect: connection refused
+10m         Warning   Unhealthy           pod/flaky-126332246-54b94bccfb-z69tz    Liveness probe failed: Get "http://10.244.2.10:8080/healthz": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+10m         Warning   Unhealthy           pod/flaky-126332246-54b94bccfb-z69tz    Readiness probe failed: Get "http://10.244.2.10:8080/healthz": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+8m21s       Normal    Started             pod/flaky-126332246-54b94bccfb-z69tz    Container started
+8m21s       Normal    Created             pod/flaky-126332246-54b94bccfb-z69tz    Container created
+8m18s       Normal    Killing             pod/flaky-126332246-54b94bccfb-z69tz    Container flaky failed liveness probe, will be restarted
+4m21s       Normal    Pulled              pod/flaky-126332246-54b94bccfb-z69tz    Container image "r3x0n05/flaky-126332246:v1" already present on machine and can be accessed by the pod
+77s         Warning   BackOff             pod/flaky-126332246-54b94bccfb-z69tz    Back-off restarting failed container flaky in pod flaky-126332246-54b94bccfb-z69tz_probes-126332246(bcb38952-f73e-4ece-a702-7caaf791b67e)

@@ -1,0 +1,34 @@
+    Liveness:       http-get http://:8080/healthz delay=0s timeout=3s period=10s #success=1 #failure=3
+    Readiness:      http-get http://:8080/healthz delay=0s timeout=2s period=5s #success=1 #failure=2
+    Startup:        http-get http://:8080/healthz delay=0s timeout=2s period=5s #success=1 #failure=25
+    Environment Variables from:
+      flaky-config-126332246  ConfigMap  Optional: false
+    Environment:              <none>
+--
+  Warning  Unhealthy  54s (x3 over 74s)   kubelet            spec.containers{flaky}: Liveness probe failed: HTTP probe failed with statuscode: 500
+  Normal   Killing    54s                 kubelet            spec.containers{flaky}: Container flaky failed liveness probe, will be restarted
+  Normal   Pulled     24s (x2 over 9m4s)  kubelet            spec.containers{flaky}: Container image "r3x0n05/flaky-126332246:v1" already present on machine and can be accessed by the pod
+  Normal   Created    24s (x2 over 9m3s)  kubelet            spec.containers{flaky}: Container created
+  Warning  Unhealthy  24s (x13 over 79s)  kubelet            spec.containers{flaky}: Readiness probe failed: HTTP probe failed with statuscode: 500
+  Normal   Started    23s (x2 over 9m3s)  kubelet            spec.containers{flaky}: Container started
+9m5s        Normal    SuccessfulCreate    replicaset/flaky-126332246-69f45b494f   Created pod: flaky-126332246-69f45b494f-wc5dx
+9m5s        Normal    SuccessfulCreate    replicaset/flaky-126332246-69f45b494f   Created pod: flaky-126332246-69f45b494f-2w9bc
+9m4s        Normal    Pulled              pod/flaky-126332246-69f45b494f-wc5dx    Container image "r3x0n05/flaky-126332246:v1" already present on machine and can be accessed by the pod
+9m4s        Normal    Pulled              pod/flaky-126332246-69f45b494f-dcckm    Container image "r3x0n05/flaky-126332246:v1" already present on machine and can be accessed by the pod
+9m4s        Normal    Scheduled           pod/curl-client                         Successfully assigned probes-126332246/curl-client to probe-126332246-worker2
+9m3s        Normal    Created             pod/flaky-126332246-69f45b494f-dcckm    Container created
+9m3s        Normal    Started             pod/flaky-126332246-69f45b494f-wc5dx    Container started
+9m3s        Normal    Started             pod/flaky-126332246-69f45b494f-dcckm    Container started
+9m3s        Normal    Pulling             pod/curl-client                         Pulling image "curlimages/curl:latest"
+9m3s        Normal    Created             pod/flaky-126332246-69f45b494f-wc5dx    Container created
+9m2s        Normal    Started             pod/curl-client                         Container started
+9m2s        Normal    Created             pod/curl-client                         Container created
+9m2s        Normal    Pulled              pod/curl-client                         Successfully pulled image "curlimages/curl:latest" in 1.522s (1.522s including waiting). Image size: 10652192 bytes.
+54s         Normal    Killing             pod/flaky-126332246-69f45b494f-2w9bc    Container flaky failed liveness probe, will be restarted
+54s         Warning   Unhealthy           pod/flaky-126332246-69f45b494f-2w9bc    Liveness probe failed: HTTP probe failed with statuscode: 500
+24s         Normal    Pulled              pod/flaky-126332246-69f45b494f-2w9bc    Container image "r3x0n05/flaky-126332246:v1" already present on machine and can be accessed by the pod
+24s         Warning   Unhealthy           pod/flaky-126332246-69f45b494f-2w9bc    Readiness probe failed: HTTP probe failed with statuscode: 500
+24s         Normal    Created             pod/flaky-126332246-69f45b494f-2w9bc    Container created
+23s         Warning   Unhealthy           pod/flaky-126332246-69f45b494f-2w9bc    Readiness probe failed: Get "http://10.244.1.2:8080/healthz": dial tcp 10.244.1.2:8080: connect: connection refused
+23s         Normal    Started             pod/flaky-126332246-69f45b494f-2w9bc    Container started
+1
