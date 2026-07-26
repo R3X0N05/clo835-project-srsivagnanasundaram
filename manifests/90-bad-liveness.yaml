@@ -23,7 +23,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: flaky-config-126332246
-        # no startup probe therefore wrong liveness fires immediately during boot and kills the pod before it can start up
+          # no startup probe therefore wrong liveness fires immediately during boot and kills the pod before it can start up
           readinessProbe:
             httpGet:
               path: /healthz

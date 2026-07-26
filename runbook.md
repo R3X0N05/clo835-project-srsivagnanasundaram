@@ -46,7 +46,7 @@ Clone the project repository
   cd clo835-project-srsivagnanasundaram
 ```
 
-Variables in the Project - Declare before running commands on terminal
+Variables in the Project
 ```bash
 NS="probes-126332246"
 DEP="flaky-126332246"
@@ -74,7 +74,9 @@ run below commands in order
 kubectl get pods -n probes-126332246
 grep -A 30 'startupProbe' manifests/30-deployment.yaml
 ```
-
+showing what's inside the manifest regarding startupProbe which blocks liveness till 125s for the boot to complete
+,readinessProbe which removed pod from endpoints when unhealthy without restarting
+ and livenessProbe which kills and restarts containers when stuck which takes 30s.
 ---
 
 ## Section 3 : Demonstrate rotating hostnames using curl
@@ -93,7 +95,8 @@ This demonstrates the three different pods using hostnames to show all of them c
  
 run below commands in order
 ```bash
-POD=$(kubectl get pods -n probes-126332246 -o name | head -1 | cut -d/ -f2)
+POD=$(kubectl get pods -n probes-126332246 -o name | grep flaky | head -1 | cut -d/ -f2)
+echo $POD
 kubectl port-forward pod/$POD 8080:8080 -n probes-126332246 &
 sleep 1
 curl -X POST http://localhost:8080/wedge
@@ -136,7 +139,7 @@ kubectl rollout restart deployment/flaky-126332246 -n probes-126332246
 kubectl rollout status deployment/flaky-126332246 -n probes-126332246
 ```
 
-Run below commands to observe the pods not restart for 90 seconds
+Run below commands to observe the pods not restart for 90 seconds , note that it will hang and exit out of it
 ```bash
 kubectl get pods -n probes-126332246 -w
 ```
@@ -160,16 +163,14 @@ run below commands in order
 ```bash
 kubectl create configmap flaky-config-126332246 \
  --from-literal=STARTUP_DELAY_SECONDS=0 \
- --from-literal=HEALTHZ_LATENCY_MS=2500 \
+ --from-literal=HEALTHZ_LATENCY_MS=2000 \
  -n probes-126332246 \
  --dry-run=client -o yaml | kubectl apply -f -
 
 kubectl rollout restart deployment/flaky-126332246 -n probes-126332246
-kubectl rollout status deployment/flaky-126332246 -n probes-126332246
-
-kubectl get pods -n probes-126332246
 
 # Demonstrating pods ready without restarting
+kubectl get pods -n probes-126332246
 kubectl get endpoints flaky-svc-126332246 -n probes-126332246
 ```
 Demonstarting no addresses being listed
@@ -214,9 +215,6 @@ kubectl create configmap flaky-config-126332246 \
     --from-literal=HEALTHZ_LATENCY_MS=2000 \
     -n probes-126332246 \
     --dry-run=client -o yaml | kubectl apply -f -
-
-kubectl rollout restart deployment/flaky-126332246 -n probes-126332246
-kubectl rollout status deployment/flaky-126332246 -n probes-126332246
 ```
 
 Run below command to verify that the app is in healthy state before applying the bad manifest
@@ -265,6 +263,3 @@ run below commands in order to cleanup environment
 ```bash
 kind delete cluster --name probe-126332246
 ```
----
-
-# END OF DEMONSTRATION - THANK YOU
